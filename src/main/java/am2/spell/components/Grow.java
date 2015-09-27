@@ -49,7 +49,7 @@ public class Grow implements ISpellComponent{
 
 		if (block == Blocks.sapling){
 			if (!world.isRemote){
-				((BlockSapling)Blocks.sapling).func_149878_d(world, blockx, blocky, blockz, world.rand);
+				((BlockSapling)Blocks.sapling).growTree(world, blockx, blocky, blockz, world.rand);
 			}
 
 			return true;
@@ -57,7 +57,7 @@ public class Grow implements ISpellComponent{
 
 		if (block == Blocks.brown_mushroom || block == Blocks.red_mushroom){
 			if (!world.isRemote){
-				((BlockMushroom)block).func_149884_c(world, blockx, blocky, blockz, world.rand);
+				((BlockMushroom)block).fertilizeMushroom(world, blockx, blocky, blockz, world.rand);
 			}
 
 			return true;
@@ -69,7 +69,7 @@ public class Grow implements ISpellComponent{
 			}
 
 			if (!world.isRemote){
-				((BlockStem)block).func_149874_m(world, blockx, blocky, blockz);
+				((BlockStem)block).fertilizeStem(world, blockx, blocky, blockz);
 			}
 
 			return true;
@@ -81,7 +81,7 @@ public class Grow implements ISpellComponent{
 			}
 
 			if (!world.isRemote){
-				((BlockCrops)block).func_149863_m(world, blockx, blocky, blockz);
+				((BlockCrops)block).fertilize(world, blockx, blocky, blockz);
 			}
 
 			return true;
@@ -116,10 +116,10 @@ public class Grow implements ISpellComponent{
 			IGrowable igrowable = (IGrowable)block;
 			//AMCore.log.getLogger().info("Grow component found IGrowable");
 
-			if (igrowable.func_149851_a(world, blockx, blocky, blockz, world.isRemote)){
+			if (igrowable.canFertilize(world, blockx, blocky, blockz, world.isRemote)){
 				if (!world.isRemote){
-					if (igrowable.func_149852_a(world, world.rand, blockx, blocky, blockz)){
-						igrowable.func_149853_b(world, world.rand, blockx, blocky, blockz);
+					if (igrowable.shouldFertilize(world, world.rand, blockx, blocky, blockz)){
+						igrowable.fertilize(world, world.rand, blockx, blocky, blockz);
 					}
 				}
 				return true;
